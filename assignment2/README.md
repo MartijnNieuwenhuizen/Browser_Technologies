@@ -73,7 +73,9 @@ The html has a good flow, so no fixes nessesery here
 	<p>Help: [Google Support](https://support.google.com/adsense/answer/12654?hl=nl)</p>
 </main>
 ```
-Even better: 
+*It's also posible to use the no-script tag*
+
+**Even better:**
 Render the data in the template on the server. Return this data as html. 
 If JS is enabled, the user stil can see content.
 
