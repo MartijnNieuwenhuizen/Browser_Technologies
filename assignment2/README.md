@@ -16,7 +16,7 @@ For online usage
 ### Custom Fonts
 * Added Fallback fonts -> font-family: 'Helvetica', 'Arial', 'Open Sans', 'Avenir', Sans-Serif;
 
-### Pictures
+### Images
 Request a smaller image on a smaller screen
 **From**
 ```
