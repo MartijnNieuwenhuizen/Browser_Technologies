@@ -124,8 +124,15 @@
 					<a href="{{ URL }}">
 						<span> Aangeboden sinds: <i>{{ AangebodenSindsTekst }}</i></span>
 						<figure>
-							<img src="{{ FotoLargest }}" alt="afbeelding van het huis">
-							<figcaption><span>{{ Adres }}</span> <span>€ {{ Koopprijs }}</span></figcaption>	
+
+							<picture>
+							    <source srcset="{{ FotoLargest }}" media="(min-width: 1280px)">
+							    <source srcset="{{ FotoLarge }}" media="(min-width: 800px)">
+							    <source srcset="{{ FotoMedium }}" media="(min-width: 320px)">
+							    <img src="{{ Foto }}" alt="afbeelding van het huis">	
+							</picture>
+							
+							<figcaption><span>Adress: {{ Adres }}</span> <span>Prijs: {{ Koopprijs }}</span></figcaption>	
 						</figure>
 					</a>
 				</li>
@@ -161,8 +168,15 @@
 					<a href="{{ URL }}">
 						<span> Aangeboden sinds: <i>{{ AangebodenSindsTekst }}</i></span>
 						<figure>
-							<img src="{{ FotoLargest }}" alt="afbeelding van het huis">
-							<figcaption><span>{{ Adres }}</span> <span>€ {{ Koopprijs }}</span></figcaption>	
+
+							<picture>
+							    <source srcset="{{ FotoLargest }}" media="(min-width: 1280px)">
+							    <source srcset="{{ FotoLarge }}" media="(min-width: 800px)">
+							    <source srcset="{{ FotoMedium }}" media="(min-width: 320px)">
+							    <img src="{{ Foto }}" alt="afbeelding van het huis">	
+							</picture>
+							
+							<figcaption><span>Adress: {{ Adres }}</span> <span>Prijs: {{ Koopprijs }}</span></figcaption>	
 						</figure>
 					</a>
 				</li>

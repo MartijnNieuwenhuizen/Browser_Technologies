@@ -68,7 +68,7 @@ var pushMessage = {
 						var content = {
 							body: "zie meer!",
 							icon: data[0].Foto,
-							link: "/funda/#thuis-vandaag/" + _userSettings.city
+							link: "#thuis-vandaag/" + _userSettings.city
 						};
 						if ( data.length > 1 ) {
 							content.title = "Er zijn vandaag " + data.length + " mogelijke huizen toegevoegd in " + _userSettings.city;

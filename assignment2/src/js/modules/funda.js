@@ -86,8 +86,9 @@ var funda = {
 		    			}
 		    			template.render(htmlElements.error.innerHTML, content);
 						
-					}
+					}	
 
+					console.dir(rawData);
 					resolve(rawData);
 
 				})

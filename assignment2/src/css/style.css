@@ -29,7 +29,7 @@ body {
 }
 main {
 	color: #333;
-	font-family: 'Helvetica', 'Open Sans', 'Avenir', Sans-Serif;
+	font-family: 'Helvetica', 'Arial', 'Open Sans', 'Avenir', Sans-Serif;
 	display: flex;
 	flex-flow: column wrap;
 	align-items: center;
@@ -333,7 +333,7 @@ figure {
 	max-height: 80vh;
 }
 i {
-	color: #f8b000;
+	color: #3888C5;
 	font-style: normal;
 }
 
