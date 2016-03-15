@@ -36,6 +36,7 @@ If you want to align something like in the example you can do the following:
 ```
 So, what happens here?
 The idea is that every block in the container has a width and is an inline-block element, so everything is sitting next to eachother. And that's good. The only thing we do with flexbox is a prittier alingment. So if your browser supports *display: inline-block;* (and every browser does that! [Can I Use -> inline-block](http://caniuse.com/#search=inline-block)) the layout will be fine. And if your browser supports flexbox, it will look even nicer. 
+**TIP:** The text-align: center; on the .container takes care of the center alignment.
 
 ## Center the inner content
 After creating a nice overview of all the items, I want to aling the content off every item. This is also verry simple! You can use the *text-align* property, which accepts the following settings: *left, right and center*. 
