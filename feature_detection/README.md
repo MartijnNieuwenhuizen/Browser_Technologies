@@ -4,7 +4,7 @@ I've looked at two elements of the flexbox series.
 1. The flex alignment
 2. Centering content
 
-In the [demo](martijnnieuwenhuizen.github.io/browser-technologies/feature_detection/index.html) you can click to see the differance between the two possibilities
+In the [demo](martijnnieuwenhuizen.github.io/browser-technologies/feature_detection/css.html) you can click to see the differance between the two possibilities
 
 ## Flexbox and/or inline-block
 To align something with flexbox is verry easy, but to create a good fallback ins't a hard job.
