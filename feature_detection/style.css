@@ -108,7 +108,16 @@ button {
 }
 
 
+/*
 
+	Progressive Enhancement Loop Demo
 
-
-
+*/
+.container-inner {
+	transition: 1s;
+	max-height: 30em;
+}
+.collapse {
+	overflow: hidden;
+	max-height: 0em;
+}
