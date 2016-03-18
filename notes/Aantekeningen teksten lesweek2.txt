@@ -1,0 +1,103 @@
+# Forward Compatible Websites
+*Sites that do not brake when new browser versions are released*
+
+Tips om zo forward compatible mogenlijk te zijn!
+
+* Als je een var aanroept vanuit je html. gebruik dan altijd window.varName omdat een globale var daar aan verbonden is.
+* Use Srtict kan met lib’s die niet zo zijn gebouwd clachen.
+* Kijk naar de libs die jij gebruikt. Volgen ze de guidelines die jij gebruikt? prima! Zo niet, dan kan je niet garanderen dat ze niet breken in de toekomst.
+* Bekijk de feature die je wilt gebruiken en test deze. Ga er niet vanuit dat omdat een browser dit ondersteund, hij ook featureX ondersteund. Dat is niet zo!
+* Test in alle major browsers. Als het daar in werkt, grote kans dat je code blijft werken.
+* Prefixed features kunnen veranderd worden voordat ze worden released, hou daar rekening mee!
+* Bij nieuwe features test je de fallback path’s
+* Laat geen gefaalde code in je bestanden!
+
+# @supports
+“@supports gives CSS the ability to perform a feature query. - CDN”
+## Syntax
+return true if transform origin is considered **valid**
+```
+( transform-origin: 5% 5% ) // alway’s use ()!
+```
+
+of gebruik 
+```
+not ( transform-origin 2px )
+( display: flex) and ( not ( display: inline-grid ) )
+```
+
+Je kan ook **or** gebruiken
+```
+( display: flex) or ( display: inline-grid )
+```
+## Usage
+```
+@supports( display: flex ) {
+	display: flex;
+	flex-flow: row wrap;
+	// enz
+}
+```
+
+# Progressive Enhancement & JS failure
+## The Twitter incident
+third-party CDN send a wrong uft8 RegEx. It was used to recognize tweets!
+**Stelling**: “Progressive Enhancement had dit voorkomen”
+
+“Progressive enhancement is about making web sites more robust and providing a good experience to every user.“
+
+“Progressive enhancement is about asking *if* a lot”
+
+Sites pakken geen code als een stuk js failes
+Het roltrap voorbeeld wordt veel gebruikt. maar dit vangt (in js) alleen de vooraf bedacht fouten op. Niet de onverwachte errors.
+
+Een roltrap voorbeeld in js is een select die in een fancy dropdown veranderd.
+
+**Beste manier**?
+Schrijf Progressive Enhanced en Test uitgebreid. Monitor daarna alle sites!
+
+“JavaScript should build on the existing HTML structure and **improve** it.”
+“Er moet een UI zijn als JS niet wordt gesupport!”
+
+“In a robust, fault-tolerant system, the failure of a sub-system should not affect the stability of the whole system. **This is how we should build JavaScript web apps**.”
+
+The # recognation should be an inhanced step!
+
+## Promises, How to write them?
+```
+aFunction()
+	// wordt uitgevoed als de functie niet faalt. is de basis
+	.then(enhancement1)
+	// Is een enhancement op de basis en wordt niet uitgevoerd als de functie faalt
+	.then(enhancement2)
+	// is een ehancement op de vorige enhancement
+	.catch(logError)
+```
+**OF**
+```
+basic().then(
+  () => {
+    // Only install enhancements when basic succeeded.
+    return enhancement1()
+      // When enhancement1 failes, use a fallback.
+      // Returns a new promise that is always resolved.
+      .catch(() => enhancement1FallbackValue)
+      .then(enhancement2)
+      .catch(handleEnhancement2Error);
+  },
+  handleBasicError
+)
+// ben hier niet heel enthousiast over, is te lastig!
+```
+
+fetch api sends http request
+
+**TIP:** zet de event.preventDefault(); achteraan!
+
+“**Failing fast** in your JavaScript is the prerequisite for handling errors gracefully and possibly downgrade to a simpler version.”
+
+
+
+
+
+

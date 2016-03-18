@@ -4,7 +4,7 @@ I've looked at two elements of the flexbox series.
 1. The flex alignment
 2. Centering content
 
-In the [demo](martijnnieuwenhuizen.github.io/projects/browser-technologies/feature_detection/css.html) you can click to see the differance between the two possibilities
+In the [demo](http://martijnnieuwenhuizen.github.io/projects/browser-technologies/feature_detection/css.html) you can click to see the differance between the two possibilities
 
 ## Flexbox and/or inline-block
 To align something with flexbox is verry easy, but to create a good fallback ins't a hard job.
@@ -63,7 +63,7 @@ But it's not possible to loop thrue a nodelist with a forEach loop, so we have t
 But do we borrow it? or does it create a new array?
 The answer: We borrow it to tempareraly create a new array where we can look thrue.
 
-[See it work](martijnnieuwenhuizen.github.io/projects/browser-technologies/feature_detection/es6.html)
+[See it work](http://martijnnieuwenhuizen.github.io/projects/browser-technologies/feature_detection/es6.html)
 
 ### The Fallback
 The fallback is the for loop, which is from je JS core (so it works in every browser).
@@ -141,7 +141,7 @@ If your browser doesn't supports this, you could add a # as value to the input. 
 // Code:
 <input type="color" value="#">
 ```
-[Use it](martijnnieuwenhuizen.github.io/projects/browser-technologies/feature_detection/es6.html)
+[Use it](http://martijnnieuwenhuizen.github.io/projects/browser-technologies/feature_detection/es6.html)
 
 ## Loop Audio
 The Audio tag can have multiple attributes. One of those is loop. 
