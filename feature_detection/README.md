@@ -154,12 +154,3 @@ If your browser doesn't support the loop attribute, the auto tag is also not sup
 	<source> // your multiple sources
 </audio>
 ```
-
-
-
-
-
-
-
-
-
