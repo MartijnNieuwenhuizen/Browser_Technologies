@@ -66,8 +66,8 @@
 
 			<legend>Others</legend>
 
-			<label for="other">Ingredient</label>
-			<input id="other" type="text" name="other" placeholder="Salami">
+			<label for="ingredient">Ingredient</label>
+			<input id="ingredient" type="text" name="other" placeholder="Salami">
 
 			<button id ="submit" type="submit">Create Tosti</button>
 
@@ -76,16 +76,33 @@
 	</form>
 
 	<section id="shopping">
-
-		<h2>Shopping List</h2>
-		<ul id="shopping-list">
-			<!-- <li class="shopping-list-item">Cheese</li>
-			<li class="shopping-list-item">Bread</li> -->
-		</ul>
 		
+		<h2>Shopping List</h2>
+
+		<?php
+			$bread = $_POST["bread"];
+			$ingredients = $_POST["ingredient"];
+			$other = $_POST["other"];
+		?>
+	
+		<ul id="shopping-list">
+			<!-- Bread -->
+			<li class="shopping-list-item"> <?php echo $bread ?> </li>
+
+			<!-- Ingredients -->
+			<?php foreach ( $ingredients as &$value ) { ?>
+				<li class="shopping-list-item"> <?php echo $value ?> </li> 
+			<?php } ?>
+
+			<!-- Others -->
+			<?php if ( $other ) { ?>
+				<li class="shopping-list-item"> <?php echo $other ?> </li>
+			<?php } ?>
+		</ul>
+
 	</section>
 
-	<script src="/script.js"></script>
+	<script src="./script.js"></script>
 
 </body>
 </html>
