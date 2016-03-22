@@ -1,0 +1,54 @@
+# Performance Workflow
+*Declan Rek- De Voorhoede*
+
+## Performance
+*site: 17 statistics to sell web performance optimalization*
+
+47% verwacht laden binnen 2sec
+40% verlaat als het langer duurt dan 3sec
+
+Perceived Performance —> Zo snel mogelijk een pagina tonen
+
+afbeelding: *assers viewports*
+
+## HTML
+### HTTP/1.1
+Komt uit 1991
+Is clecht in het serveren van heel veel recources
+
+## Tweedehands.be
+Zo min mogelijk HTTP Requests
+images base 64 encoden en als dara uri inladen (src=“data:image/svg+xml”)
+onerror: make it png
+
+## Renderblocking
+scripts + css in je head zijn renderblocking
+* fonts
+* css
+* js
+
+Oplossing: Async Inladen
+
+## Fonts
+Subsetten van je Fonts —> aleen caracters in je font bepalen.
+fontface
+
+font display swap
+@font-face {
+	font-display: swap
+}
+
+## CSS
+is renderblocking door het samenvoegen van de DOM en de CSSOM in de Rendertree
+<link rel=“preload” href=“full.css” onload=“this.rel=’stylesheet’”>
++ noscript tag met de url zonder JS
+
+## JS
+
+## Images
+WebP afbeeldingen met picutre element inladen
+
+Meta tag client hints —> 
+
+# HTTP2
+I

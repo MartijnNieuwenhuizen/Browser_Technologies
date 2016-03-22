@@ -1,3 +1,6 @@
+<!-- Let the php get the form elements AND handle it with JS as enhancement -->
+
+
 <!DOCTYPE html>
 <html>
 <head>
