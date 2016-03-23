@@ -30,8 +30,6 @@
 			var other = document.querySelector('#other');
 			var ingredientList = [];
 
-			console.log(other, toppings, bread);
-
 			ingredientList.push(bread.defaultValue);
 			if ( other.value != "" ) {
 				ingredientList.push(other.value);
