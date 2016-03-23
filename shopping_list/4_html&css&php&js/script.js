@@ -6,6 +6,13 @@
 			if ( ('querySelector' in document) && ('addEventListener' in document) ) {
 				form.addListener();
 				formAnimation.reset();
+
+				// Bug fix https://github.com/Modernizr/Modernizr/issues/57
+				if ( 'draggable' in document.createElement("div") && !/Mobile|Android|Slick\/|Kindle|BlackBerry|MSIE|Opera Mini|MSIE|Opera Mobi/i.test(navigator.userAgent)  ) {
+							
+					dragActions.createDropEvents();
+
+				}
 			}
 
 		}
@@ -14,7 +21,8 @@
 	var htmlElements = {
 		submitButton: document.querySelector('#submit'),
 		list: document.querySelector('#shopping-list'),
-		fieldsets: document.querySelectorAll('fieldset')
+		fieldsets: document.querySelectorAll('fieldset'),
+		labels: document.querySelectorAll('label')
 	};
 
 	var form = {
@@ -29,8 +37,6 @@
 			var toppings = document.querySelectorAll('#toppings input:checked');
 			var other = document.querySelector('#other');
 			var ingredientList = [];
-
-			console.log(other, toppings, bread);
 
 			ingredientList.push(bread.defaultValue);
 			if ( other.value != "" ) {
@@ -49,13 +55,15 @@
 		},
 		createNewList: function(e) {
 
-			event.preventDefault();
-
 			var newIngredientList = form.getElements();
 			list.addNewContent(newIngredientList);
 			formAnimation.setToBeginMode();
 
-			event.preventDefault();
+			if (e.preventDefault) {
+				e.preventDefault();
+			} else {
+				e.returnValue = false;
+			}
 		}
 	};
 
@@ -111,6 +119,7 @@
 					var button = document.createElement('button');
 					button.innerHTML = "Next";
 					button.classList.add('js-button');
+					button.type = "nosubmit";
 					fieldset.appendChild(button);
 
 					y++;
@@ -142,14 +151,18 @@
 			}, 300);
 
 		},
-		showNextFieldset: function() {
+		showNextFieldset: function(event) {
 
 			var nexFieldset = event.target.next;
 
 			formAnimation.hideAllFieldsets();
 			formAnimation.showFieldset(nexFieldset);		
 			
-			event.preventDefault();
+			if (event.preventDefault) {
+				event.preventDefault();
+			} else {
+				event.returnValue = false;
+			}
 
 		},	
 		setToBeginMode: function() {
@@ -168,6 +181,97 @@
 		}
 		
 	};
+
+	var dragEvents = {
+
+		allowDrop: function(event) {
+		  	
+		  	if (event.preventDefault) {
+		  		event.preventDefault();
+		  	} else {
+		  		event.returnValue = false;
+		  	}
+
+		},
+		drag: function(event) {
+		  	
+		  	// set targetName on element === the same as the 'for' on the html element
+		    event.dataTransfer.setData("targetName", event.target.htmlFor);
+
+		},
+		drop: function(event) {
+
+			// get the targetName of the draged element
+		    var data = event.dataTransfer.getData("targetName");
+		    // get the label with the same 'for' name on the html
+		    var element = document.querySelector('label[for="'+ data +'"]');
+		    // get the inner html of the selected label
+		    var text = element.innerHTML;
+		    // create new list item
+		    var newListItem = document.createElement('li');
+		    // set the list item inner html to the inner html of the selected label
+		    newListItem.innerHTML = text;
+		    // add the new list item to the ul
+		    event.target.appendChild(newListItem);
+
+		    if (event.preventDefault) {
+		  		event.preventDefault();
+		  	} else {
+		  		event.returnValue = false;
+		  	}
+
+		}
+
+	};
+
+	var dragActions = {
+		createDropEvents: function() {
+
+			dragActions.setLabels();
+			dragActions.setBox();
+			dragActions.addClass('label', 'js-highlight-label');
+
+		},
+		setLabels: function() {	
+
+			var labels = htmlElements.labels;
+			for ( i = 0; i < labels.length; i ++ ) {
+
+				var label = labels[i];
+
+				label.ondragstart = function() {
+					dragEvents.drag(event);
+				};
+
+			}
+
+		},
+		setBox: function() {
+			
+			// get ul
+			var dropArea = htmlElements.list;
+			// set new min height && bg color with css class
+			dropArea.classList.add('js-drop-area');
+			
+			// allow drop in this area
+			dropArea.ondrop = function() {
+				dragEvents.drop(event);
+			}
+			dropArea.ondragover = function() {
+				dragEvents.allowDrop(event);
+			}	
+
+		},
+		addClass: function(input, className) {
+
+			var elements = document.querySelectorAll(input);
+			for ( i = 0; i < elements.length; i++ ) {
+				elements[i].classList.add(className);
+			}
+
+		}
+
+	}
 		
 	app.louncher();
 

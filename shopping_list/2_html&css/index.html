@@ -10,26 +10,28 @@
 		document.createElement('section');
 	</script>
 
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
 	<link rel="stylesheet" href="./style.css">
 
 </head>
 <body>
 
 	<header>
-		<h1>Combine your own Tosti</h1>
+		<h1><a href="/">Combine your own Tosti</a></h1>
 	</header>
 
-	<form action="">
+	<form action="formValidation.php" method="post">
 		
 		<h2>Add your Ingredient</h2>
 		<fieldset id="bread">
 			
 			<legend>Bread</legend>
 			
-			<label for="white-bread">White Bread</label>
-			<input id="white-bread" type="radio" name="bread" value="white-bread" checked>
+			<label for="white-bread" draggable="true">White Bread</label>
+			<input id="white-bread" type="radio" name="bread" value="white-bread" checked="checked">
 
-			<label for="brown-bread">Brown Bread</label>
+			<label for="brown-bread" draggable="true">Brown Bread</label>
 			<input id="brown-bread" type="radio" name="bread" value="brown-bread">
 
 		</fieldset>
@@ -37,39 +39,39 @@
 			
 			<legend>Toppings</legend>
 			
-			<label for="ingredient-tomato">Tomato</label>
-			<input id="ingredient-tomato" type="checkbox" name="ingredient-tomato" value="ingredient-tomato">
+			<label for="ingredient-tomato" draggable="true">Tomato</label>
+			<input id="ingredient-tomato" type="checkbox" name="ingredient[]" value="tomato">
 
-			<label for="ingredient-pineapple">Pineapple</label>
-			<input id="ingredient-pineapple" type="checkbox" name="ingredient-pineapple" value="ingredient-pineapple">
+			<label for="ingredient-pineapple" draggable="true">Pineapple</label>
+			<input id="ingredient-pineapple" type="checkbox" name="ingredient[]" value="pineapple">
 
-			<label for="ingredient-cheese">Cheese</label>
-			<input id="ingredient-cheese" type="checkbox" name="ingredient-cheese" value="ingredient-cheese">
+			<label for="ingredient-cheese" draggable="true">Cheese</label>
+			<input id="ingredient-cheese" type="checkbox" name="ingredient[]" value="cheese">
 
-			<label for="ingredient-ham">Ham</label>
-			<input id="ingredient-ham" type="checkbox" name="ingredient-ham" value="ingredient-ham">
+			<label for="ingredient-ham" draggable="true">Ham</label>
+			<input id="ingredient-ham" type="checkbox" name="ingredient[]" value="ham">
 
-			<label for="ingredient-latuce">Latuce</label>
-			<input id="ingredient-latuce" type="checkbox" name="ingredient-latuce" value="ingredient-latuce">
+			<label for="ingredient-latuce" draggable="true">Latuce</label>
+			<input id="ingredient-latuce" type="checkbox" name="ingredient[]" value="latuce">
 
-			<label for="ingredient-mozarella">Mozarella</label>
-			<input id="ingredient-mozarella" type="checkbox" name="ingredient-mozarella" value="ingredient-mozarella">
+			<label for="ingredient-mozarella" draggable="true">Mozarella</label>
+			<input id="ingredient-mozarella" type="checkbox" name="ingredient[]" value="mozarella">
 
-			<label for="ingredient-pesto">Pesto</label>
-			<input id="ingredient-pesto" type="checkbox" name="ingredient-pesto" value="ingredient-pesto">
+			<label for="ingredient-pesto" draggable="true">Pesto</label>
+			<input id="ingredient-pesto" type="checkbox" name="ingredient[]" value="pesto">
 
-			<label for="ingredient-butter">Butter</label>
-			<input id="ingredient-butter" type="checkbox" name="ingredient-butter" value="ingredient-butter">
+			<label for="ingredient-butter" draggable="true">Butter</label>
+			<input id="ingredient-butter" type="checkbox" name="ingredient[]" value="butter">
 
 		</fieldset>
 		<fieldset id="input-ingredient">
 
 			<legend>Others</legend>
 
-			<label for="ingredient">Ingredient</label>
-			<input id="ingredient" type="text" placeholder="Salami">
+			<label for="other">Ingredient</label>
+			<input id="other" type="text" name="other" placeholder="Salami">
 
-			<button type="submit">Create Tosti</button>
+			<button id="submit" type="submit" name="submit">Create Tosti</button>
 
 		</fieldset>
 
@@ -79,8 +81,8 @@
 
 		<h2>Shopping List</h2>
 		<ul id="shopping-list">
-			<li class="shopping-list-item">Cheese</li>
-			<li class="shopping-list-item">Bread</li>
+			<!-- <li class="shopping-list-item">Cheese</li>
+			<li class="shopping-list-item">Bread</li> -->
 		</ul>
 		
 	</section>

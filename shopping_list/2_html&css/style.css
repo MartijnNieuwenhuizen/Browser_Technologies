@@ -45,6 +45,10 @@ h2 {
 	font-size: 1.5em;
 	margin-left: .7em;
 }
+a {
+	text-decoration: none;
+	color: inherit;
+}
 
 /*
 
@@ -72,7 +76,7 @@ FORM
 
 */
 form {
-	max-width: 18em;		
+	width: 100%;		
 	background-color: #dddfd4;
 }
 legend {
@@ -87,19 +91,23 @@ fieldset {
 input {
 	font-size: 1.3em;
 }
+/*label {
+	background-color: #fae596;
+}*/
+#other {
+	max-width: 10em;
+}
 
 /*
 	INGREDIENTS
 */
 #bread input[type="checkbox"], #toppings input[type="checkbox"],
 #bread input[type="radio"], #toppings input[type="radio"] {
-	float: left;
-	margin: .6em 0;
+	margin: .6em 1em 0 0;
 }
 #bread label, #toppings label {
-	margin: .3em 1em;
-	float: left;
-	clear: left;
+	margin: 0;
+	padding: .3em 1em;
 }
 
 /*
@@ -115,11 +123,14 @@ button {
 	font-size: 1.5em;
 }
 button {
+	display: block;
 	font-size: 1em;
 	font-weight: bold;
 	border: none;
 	background-color: #3fb0ac;
 	color: white;
+	max-width: -webkit-max-content;
+	max-width: -moz-max-content;
 	max-width: max-content;
 	padding: .3em 1em;
 }
@@ -131,21 +142,77 @@ SHOPPING LIST
 */
 #shopping {
 	max-width: 30em;
+	margin-left: 3em;
 }
 .shopping-list {
 
 }
-.shopping-list-item {
+li {
 	padding: .3em .7em;
 	margin: .3em 0;
 	background-color: #3fb0ac;
 	color: white;
 	font-weight: bold;
 	font-size: 1.3em;
+	list-style-type: none;
 }
 
-/*
-#3fb0ac
-#173e43
-*/
 
+/*
+
+JAVASCRIPT
+
+*/
+.hide-left {
+	padding-bottom: 2.5em;
+	position: absolute;
+	top: 10.5em;
+	background-color: #dddfd4;
+	-webkit-transition: .3s;
+	        transition: .3s;
+	-webkit-transform: translateX(-100%);
+	    -ms-transform: translateX(-100%);
+	        transform: translateX(-100%);
+}
+.show {
+	-webkit-transition: .3s;
+	        transition: .3s;
+	-webkit-transform: translateX(0%);
+	    -ms-transform: translateX(0%);
+	        transform: translateX(0%);	
+}
+.js-button {
+    clear: left;
+}
+.js-drop-area {
+	padding: 1em;
+	min-height: 7em;
+	background-color: #e7e7e7;
+	padding-bottom: 5em;
+}
+.js-input-hide {
+	display: none;
+}
+.js-highlight-label {
+	background-color: #fae596;
+	margin: .3em 0 !important;
+}
+
+@media(min-width: 820px) {
+	#bread input[type="checkbox"], #toppings input[type="checkbox"],
+	#bread input[type="radio"], #toppings input[type="radio"] {
+		margin: .6em 0;
+		float: left;
+	}
+	#bread label, #toppings label {
+		float: left;
+		clear: left;
+	}
+	form {
+		max-width: 18em;
+	}
+	.js-button {
+		float: left;
+	    clear: left;
+	}
+}
