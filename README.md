@@ -3,10 +3,13 @@ This repo is about Browser Technologies and progressive enhancement
 
 ## Assignment Two
 **Enhance my Funda app.**
-The code and documented enhancements are shown in [assignment2](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/tree/master/assignment2).
+The code and documented enhancements are shown in: [assignment2](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/tree/master/assignment2).
 
 ## Featue Detection
-We reseached 6 new items in HTML5, CSS3 and ES6. The documented are avalible in [feature_detection](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/tree/master/feature_detection).
+We reseached 6 new items in HTML5, CSS3 and ES6. The documented are avalible in: [feature_detection](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/tree/master/feature_detection).
 
 ## Progressive Enhancement
-Rewrote the core element of the Funda-App with Progessive Enhancement. You can find the assignment in [progressive_enhancement](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/tree/master/progressive_enhancement).
+Rewrote the core element of the Funda-App with Progessive Enhancement. You can find the assignment in: [progressive_enhancement](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/tree/master/progressive_enhancement).
+
+## Shopping List (Create a tosti shopping list) 
+The shopping list is build from the ground up with the Progressive Enhancement Theory. You can read the documentation and code in: [shopping_list](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/tree/master/shopping_list).
