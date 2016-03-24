@@ -103,7 +103,7 @@ input {
 */
 #bread input[type="checkbox"], #toppings input[type="checkbox"],
 #bread input[type="radio"], #toppings input[type="radio"] {
-	margin: .6em 1em 0 0;
+	margin: 1em 1em 0 0.2em;
 }
 #bread label, #toppings label {
 	margin: 0;
@@ -201,7 +201,7 @@ JAVASCRIPT
 @media(min-width: 820px) {
 	#bread input[type="checkbox"], #toppings input[type="checkbox"],
 	#bread input[type="radio"], #toppings input[type="radio"] {
-		margin: .6em 0;
+		margin: .6em 0px 0 0.5em;
 		float: left;
 	}
 	#bread label, #toppings label {
