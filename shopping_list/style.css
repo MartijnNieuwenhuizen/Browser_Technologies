@@ -142,7 +142,6 @@ SHOPPING LIST
 */
 #shopping {
 	max-width: 30em;
-	margin-left: 3em;
 }
 .shopping-list {
 
@@ -170,9 +169,9 @@ JAVASCRIPT
 	background-color: #dddfd4;
 	-webkit-transition: .3s;
 	        transition: .3s;
-	-webkit-transform: translateX(-100%);
-	    -ms-transform: translateX(-100%);
-	        transform: translateX(-100%);
+	-webkit-transform: translateX(-102%);
+	    -ms-transform: translateX(-102%);
+	        transform: translateX(-102%);
 }
 .show {
 	-webkit-transition: .3s;
