@@ -3,7 +3,7 @@
 	var app = {
 		louncher: function() {
 
-			if ( ('querySelector' in document) && ('addEventListener' in document) ) {
+			if ( ('querySelector' in document) && ('addEventListener' in document) && (document.documentElement.classList.add) ) {
 				form.addListener();
 				formAnimation.reset();
 
@@ -64,7 +64,8 @@
 			} else {
 				e.returnValue = false;
 			}
-		}
+		},
+
 	};
 
 	var list = {
@@ -217,6 +218,11 @@
 		    // add the animation class to the elements
 		    newListItem.classList.add('js-ondrop');
 
+		    // // Tryout for the POST request
+	    	// var data = event.dataTransfer.getData("targetName");
+	    	// var urlToLocalPhp = "http://local.tosti.nl/formValidation.php";
+	    	// postRequest.post(data, urlToLocalPhp);
+
 		    if (event.preventDefault) {
 		  		event.preventDefault();
 		  	} else {
@@ -275,6 +281,38 @@
 		}
 
 	}
+
+	// // Tryout for the POST request
+	// var postRequest = {
+	// 	getHTTPObject: function() {
+	// 	 	var xmlhttp = false;
+	// 	 	if (window.XMLHttpRequest) {
+	// 	  		xmlhttp = new XMLHttpRequest();
+	// 	 	} else if(window.ActiveXObject) {
+	// 	  		try {
+	// 	   			xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+	// 	  		} catch (e) {
+	// 	   			try {
+	// 	    			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	// 	   			} catch (e) {
+	// 	    			xmlhttp = false;
+	// 	   			}
+	// 	  		}
+	// 		}
+	// 		return xmlhttp;
+	// 	},
+
+	// 	post: function(data, url) {
+	// 		if (data) {
+	// 			console.log(data, url);
+	// 			request = postRequest.getHTTPObject();
+
+	// 			request.open("POST", url, true);
+	// 			request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	// 			request.send(data);
+	// 		}
+	// 	}
+	// };
 		
 	app.louncher();
 
