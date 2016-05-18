@@ -1,29 +1,219 @@
-# Create Your Tosti Grocery's list
-This repo is all about Progressive Enhancement
+# Progressive enhancing the Drag & Drop API
+Drag & Drop is an awesome new feature in the world of Web API's, but not usable in every browser. So what to do in those browsers? For what is Drag & Drop an enhancement?
 
-This code is build by the theory of Progressive Enhancement. [link](http://martijnnieuwenhuizen.github.io/projects/browser-technologies/create_your_own_tosti/tosti.html)
+## Support
+The Drag & Drop API is supported in
 
-## HTML
-If your browser doesn't support anything but HTML, or that's the only thing that's loaded, the HTML is workable. It doesn't look nice, but it works!
-![Page with only HTML](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/blob/master/shopping_list/img/only_html.png "Page with only HTML")
+* Chrome 4.0 (now 50)
+* IE9 (now 11)
+* Firefox 3.5 (now 46)
+* Safari 6.0 (now 9.2)
+* Ophera 12.0 (now 36)
 
-## HTML & CSS
-If your browser loads CSS, you will get some nice colors, positions and fonts.
-The enhancement in the CSS is the alignment with flexbox. Doesn't your browser support flexbox, the alignment is good. Does your browser support flexbox, the alignment is great.
-![Page with HTML and CSS](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/blob/master/shopping_list/img/add_css.png "Page with HTML and CSS")
+So it's not that bad, but what if you use IE8, an E-reader or a smart tv with a weird browser? It should still work right!?
 
-## PHP
-The default rendering of the form is done by PHP. The form posts the data to the PHP script and that script renders the input and shows it. 
+## The core
+In this assignment I build a tool to [create a Grocery list for a tosti](http://martijnnieuwenhuizen.github.io/projects/browser-technologies/create_your_own_tosti/tosti.html). 
+You must be able to get the choices on the list, and it would be awesome if you could immediately Drag & Drop them on the list.
+But what's the core of that? **A From**. So that's:
+
+```
+    
+    <form>
+        // your code
+    </form>
+
+```
+
+Becuase a form gives you the opportunity to collect the data that the user has set, and transfer it to the list, it's the right choice for the job.
+So this would be your basic HTML:
+
+```
+    
+    <form action="formValidation.php" method="post">
+        
+        <h2>Add your Ingredient</h2>
+        <fieldset id="bread">
+            
+            <legend>Bread</legend>
+            
+            <label for="white-bread">White Bread</label>
+            <input id="white-bread" type="radio" name="bread" value="white-bread" checked="checked">
+
+            <label for="brown-bread">Brown Bread</label>
+            <input id="brown-bread" type="radio" name="bread" value="brown-bread">
+
+        </fieldset>
+        <fieldset id="toppings">
+            
+            <legend>Toppings</legend>
+            
+            <label for="ingredient-tomato">Tomato</label>
+            <input id="ingredient-tomato" type="checkbox" name="ingredient[]" value="tomato">
+
+            <label for="ingredient-pineapple">Pineapple</label>
+            <input id="ingredient-pineapple" type="checkbox" name="ingredient[]" value="pineapple">
+
+            <label for="ingredient-cheese">Cheese</label>
+            <input id="ingredient-cheese" type="checkbox" name="ingredient[]" value="cheese">
+
+            <label for="ingredient-ham">Ham</label>
+            <input id="ingredient-ham" type="checkbox" name="ingredient[]" value="ham">
+
+        </fieldset>
+        <fieldset id="input-ingredient">
+
+            <legend>Others</legend>
+
+            <label for="other">Ingredient</label>
+            <input id="other" type="text" name="other" placeholder="Salami">
+
+            <button id="submit" type="submit" name="submit">Create Tosti</button>
+
+        </fieldset>
+
+    </form>
+
+```
+
+The form will be rendered by the formValidation.php script and set in the list.
+
+This means almost(or even) every browser is able to create this list.
+
+## Adding the Drag & Drop
+After the core works, it's time te enhance it. To add the drag and drop you simply add ```draggable="true"``` to every element that must be draggable. This lets you drag the items, but there's no drop yet.
+To set the drop, you will need to use JavaScript.
+
+First, check if the draggable element is available. In this case, I used the check from Modernizer I know it's ugly, but also the only way to do it.
+```
+    
+    if ( 'draggable' in document.createElement("div") && !/Mobile|Android|Slick\/|Kindle|BlackBerry|MSIE|Opera Mini|MSIE|Opera Mobi/i.test(navigator.userAgent)  ) {
+                
+        // call the other functions
+
+    }
+    
+
+```
+
+If your browser supports this, you will need to get the element that's dragged with a check
+```
+
+    item.ondragstart = function() {
+        dragEvent(event);
+    };
+
+```
+
+Next, set the data to the element-object so you can transfer it to the list.
+```
+
+    function dragEvent(event) {
+          
+        event.dataTransfer.setData("targetName", event.target.htmlFor);
+
+    };
+
+```
+
+After that, make the dropPont droppable
+```
+
+    function setDropZone() {
+        
+        var dropArea = document.querySelector('ul');
+        
+        // add a class for the styling
+        dropArea.classList.add('js-drop-area');
+        
+        // allow drop in this area
+        dropArea.ondrop = function() {
+            dropElement(event);
+        }
+        // create a visual clue that you can drop your element here
+        // and prevent the default
+        dropArea.ondragover = function() {
+            dropArea.classList.add('allow-drop')
+
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false;
+            }
+        }    
+
+    };
+
+```
+
+At last, set the info from the drag element into the drop element
+```
+
+    function dropElement(event) {
+
+        // get the targetName of the draged element
+        var data = event.dataTransfer.getData("targetName");
+        // get the label with the same 'for' name on the html
+        var element = document.querySelector('label[for="'+ data +'"]');
+        // get the inner html of the selected label
+        var text = element.innerHTML;
+        // create new list item
+        var newListItem = document.createElement('li');
+        // set the list item inner html to the inner html of the selected label
+        newListItem.innerHTML = text;
+        // add the new list item to the ul
+        event.target.appendChild(newListItem);
+        // add the animation class to the elements
+        newListItem.classList.add('js-ondrop');
+
+        if (event.preventDefault) {
+              event.preventDefault();
+          } else {
+              event.returnValue = false;
+          }
+
+    }
+
+```
+
+
+If the item is Dropped, read the event and added it as a new list item
+
+That's the basic code to create a good drag and drop functionality with the Drag & Drop API.
+
+## Other enhancements
+### CSS
+Now that there's Flexbox, it's very easy to build a layout, but also flexbox isn't supported by every browser. To fix this you don't need to float anything, just be smart with the CSS ```display: something;```.
+If you set this right, your layout will behave like you want, without setting and deleting the floats in case your browser supports flexbox. If you want to see a specific example, you could look at the [feature detection assignment](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/tree/master/feature_detection).
+A quick example will give you an insight:
+```
+
+    li {
+        // this centers all the elements in the *li* and will place all the li's behind each other
+        display: inline-block;
+        text-align: center;    
+    }
+
+    // with flexbox, you could better align the list and the list-item like this.
+    ul, li {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    li {
+        flex-direction: column;
+    }
+
+```
 
 ## JavaScript
-There are a view enhancements done with JS
-![Page with HTML, CSS and JS](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/blob/master/shopping_list/img/add_js.png "Page with HTML, CSS and JS")
+The bar on the left animates if your browser supports some basic JavaScript. But if not, the bar should still be usable, so the default is one big bar. 
 
-### Sliding form
-If your browser supports the querySelector and the eventListener, the form will cut in three parts. Also, buttons are added and you can click true the three sections with the buttons.
+If your JavaScript runs, two of the three pieces of the bar are moved out of the screen. If you push the (by JavaScript) added 'Next' button, the current piece is moved to the left and the next one slide in from the left.
 
-### Saving the form
-If your browser supports the same element as above, the form will not be rendered by PHP. JS prevents the form from validating and get all the selected elements on the form. Each element gets created as a new 'li' in the ul(grocery list).
+This way there's a fancy animation and it's usable without the animation.
 
-### Touch
-If your browser supports touch and isn't a mobile with a operating system that's in the check (sorry for that one!), you can drag and drop the elements from the form to the list.
+
+## Enhance it
+If you have any suggestions, feel free to create a pull request and if you see something wrong, you can create an Issue
