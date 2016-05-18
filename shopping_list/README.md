@@ -92,7 +92,9 @@ if ( 'draggable' in document.createElement("div") && !/Mobile|Android|Slick\/|Ki
 If your browser supports this, you will need to get the element that's dragged with a check
 ```
 item.ondragstart = function() {
+    
     dragEvent(event);
+
 };
 ```
 
@@ -118,6 +120,7 @@ function setDropZone() {
     dropArea.ondrop = function() {
         dropElement(event);
     }
+
     // create a visual clue that you can drop your element here
     // and prevent the default
     dropArea.ondragover = function() {
@@ -139,16 +142,22 @@ function dropElement(event) {
 
     // get the targetName of the draged element
     var data = event.dataTransfer.getData("targetName");
+
     // get the label with the same 'for' name on the html
     var element = document.querySelector('label[for="'+ data +'"]');
+
     // get the inner html of the selected label
     var text = element.innerHTML;
+
     // create new list item
     var newListItem = document.createElement('li');
+
     // set the list item inner html to the inner html of the selected label
     newListItem.innerHTML = text;
+
     // add the new list item to the ul
     event.target.appendChild(newListItem);
+
     // add the animation class to the elements
     newListItem.classList.add('js-ondrop');
 
