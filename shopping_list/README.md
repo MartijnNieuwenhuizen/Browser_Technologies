@@ -18,62 +18,58 @@ You must be able to get the choices on the list, and it would be awesome if you 
 But what's the core of that? **A From**. So that's:
 
 ```
-    
-    <form>
-        // your code
-    </form>
-
+<form>
+    // your code
+</form>
 ```
 
 Becuase a form gives you the opportunity to collect the data that the user has set, and transfer it to the list, it's the right choice for the job.
 So this would be your basic HTML:
 
-```
+```    
+<form action="formValidation.php" method="post">
     
-    <form action="formValidation.php" method="post">
+    <h2>Add your Ingredient</h2>
+    <fieldset id="bread">
         
-        <h2>Add your Ingredient</h2>
-        <fieldset id="bread">
-            
-            <legend>Bread</legend>
-            
-            <label for="white-bread">White Bread</label>
-            <input id="white-bread" type="radio" name="bread" value="white-bread" checked="checked">
+        <legend>Bread</legend>
+        
+        <label for="white-bread">White Bread</label>
+        <input id="white-bread" type="radio" name="bread" value="white-bread" checked="checked">
 
-            <label for="brown-bread">Brown Bread</label>
-            <input id="brown-bread" type="radio" name="bread" value="brown-bread">
+        <label for="brown-bread">Brown Bread</label>
+        <input id="brown-bread" type="radio" name="bread" value="brown-bread">
 
-        </fieldset>
-        <fieldset id="toppings">
-            
-            <legend>Toppings</legend>
-            
-            <label for="ingredient-tomato">Tomato</label>
-            <input id="ingredient-tomato" type="checkbox" name="ingredient[]" value="tomato">
+    </fieldset>
+    <fieldset id="toppings">
+        
+        <legend>Toppings</legend>
+        
+        <label for="ingredient-tomato">Tomato</label>
+        <input id="ingredient-tomato" type="checkbox" name="ingredient[]" value="tomato">
 
-            <label for="ingredient-pineapple">Pineapple</label>
-            <input id="ingredient-pineapple" type="checkbox" name="ingredient[]" value="pineapple">
+        <label for="ingredient-pineapple">Pineapple</label>
+        <input id="ingredient-pineapple" type="checkbox" name="ingredient[]" value="pineapple">
 
-            <label for="ingredient-cheese">Cheese</label>
-            <input id="ingredient-cheese" type="checkbox" name="ingredient[]" value="cheese">
+        <label for="ingredient-cheese">Cheese</label>
+        <input id="ingredient-cheese" type="checkbox" name="ingredient[]" value="cheese">
 
-            <label for="ingredient-ham">Ham</label>
-            <input id="ingredient-ham" type="checkbox" name="ingredient[]" value="ham">
+        <label for="ingredient-ham">Ham</label>
+        <input id="ingredient-ham" type="checkbox" name="ingredient[]" value="ham">
 
-        </fieldset>
-        <fieldset id="input-ingredient">
+    </fieldset>
+    <fieldset id="input-ingredient">
 
-            <legend>Others</legend>
+        <legend>Others</legend>
 
-            <label for="other">Ingredient</label>
-            <input id="other" type="text" name="other" placeholder="Salami">
+        <label for="other">Ingredient</label>
+        <input id="other" type="text" name="other" placeholder="Salami">
 
-            <button id="submit" type="submit" name="submit">Create Tosti</button>
+        <button id="submit" type="submit" name="submit">Create Tosti</button>
 
-        </fieldset>
+    </fieldset>
 
-    </form>
-
+</form>
 ```
 
 The form will be rendered by the formValidation.php script and set in the list.
@@ -85,95 +81,84 @@ After the core works, it's time te enhance it. To add the drag and drop you simp
 To set the drop, you will need to use JavaScript.
 
 First, check if the draggable element is available. In this case, I used the check from Modernizer I know it's ugly, but also the only way to do it.
-```
-    
-    if ( 'draggable' in document.createElement("div") && !/Mobile|Android|Slick\/|Kindle|BlackBerry|MSIE|Opera Mini|MSIE|Opera Mobi/i.test(navigator.userAgent)  ) {
-                
-        // call the other functions
+```    
+if ( 'draggable' in document.createElement("div") && !/Mobile|Android|Slick\/|Kindle|BlackBerry|MSIE|Opera Mini|MSIE|Opera Mobi/i.test(navigator.userAgent)  ) {
+            
+    // call the other functions
 
-    }
-    
-
+}
 ```
 
 If your browser supports this, you will need to get the element that's dragged with a check
 ```
-
-    item.ondragstart = function() {
-        dragEvent(event);
-    };
-
+item.ondragstart = function() {
+    dragEvent(event);
+};
 ```
 
 Next, set the data to the element-object so you can transfer it to the list.
 ```
+function dragEvent(event) {
+      
+    event.dataTransfer.setData("targetName", event.target.htmlFor);
 
-    function dragEvent(event) {
-          
-        event.dataTransfer.setData("targetName", event.target.htmlFor);
-
-    };
-
+};
 ```
 
 After that, make the dropPont droppable
 ```
+function setDropZone() {
+    
+    var dropArea = document.querySelector('ul');
+    
+    // add a class for the styling
+    dropArea.classList.add('js-drop-area');
+    
+    // allow drop in this area
+    dropArea.ondrop = function() {
+        dropElement(event);
+    }
+    // create a visual clue that you can drop your element here
+    // and prevent the default
+    dropArea.ondragover = function() {
+        dropArea.classList.add('allow-drop')
 
-    function setDropZone() {
-        
-        var dropArea = document.querySelector('ul');
-        
-        // add a class for the styling
-        dropArea.classList.add('js-drop-area');
-        
-        // allow drop in this area
-        dropArea.ondrop = function() {
-            dropElement(event);
+        if (event.preventDefault) {
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
         }
-        // create a visual clue that you can drop your element here
-        // and prevent the default
-        dropArea.ondragover = function() {
-            dropArea.classList.add('allow-drop')
+    }    
 
-            if (event.preventDefault) {
-                event.preventDefault();
-            } else {
-                event.returnValue = false;
-            }
-        }    
-
-    };
-
+};
 ```
 
 At last, set the info from the drag element into the drop element
 ```
+function dropElement(event) {
 
-    function dropElement(event) {
+    // get the targetName of the draged element
+    var data = event.dataTransfer.getData("targetName");
+    // get the label with the same 'for' name on the html
+    var element = document.querySelector('label[for="'+ data +'"]');
+    // get the inner html of the selected label
+    var text = element.innerHTML;
+    // create new list item
+    var newListItem = document.createElement('li');
+    // set the list item inner html to the inner html of the selected label
+    newListItem.innerHTML = text;
+    // add the new list item to the ul
+    event.target.appendChild(newListItem);
+    // add the animation class to the elements
+    newListItem.classList.add('js-ondrop');
 
-        // get the targetName of the draged element
-        var data = event.dataTransfer.getData("targetName");
-        // get the label with the same 'for' name on the html
-        var element = document.querySelector('label[for="'+ data +'"]');
-        // get the inner html of the selected label
-        var text = element.innerHTML;
-        // create new list item
-        var newListItem = document.createElement('li');
-        // set the list item inner html to the inner html of the selected label
-        newListItem.innerHTML = text;
-        // add the new list item to the ul
-        event.target.appendChild(newListItem);
-        // add the animation class to the elements
-        newListItem.classList.add('js-ondrop');
+    if (event.preventDefault) {
+          event.preventDefault();
+      } else {
+          event.returnValue = false;
+      }
 
-        if (event.preventDefault) {
-              event.preventDefault();
-          } else {
-              event.returnValue = false;
-          }
-
-    }
-
+}
 ```
 
 
@@ -187,24 +172,22 @@ Now that there's Flexbox, it's very easy to build a layout, but also flexbox isn
 If you set this right, your layout will behave like you want, without setting and deleting the floats in case your browser supports flexbox. If you want to see a specific example, you could look at the [feature detection assignment](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/tree/master/feature_detection).
 A quick example will give you an insight:
 ```
+li {
+    // this centers all the elements in the *li* and will place all the li's behind each other
+    display: inline-block;
+    text-align: center;    
+}
 
-    li {
-        // this centers all the elements in the *li* and will place all the li's behind each other
-        display: inline-block;
-        text-align: center;    
-    }
-
-    // with flexbox, you could better align the list and the list-item like this.
-    ul, li {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    li {
-        flex-direction: column;
-    }
-
+// with flexbox, you could better align the list and the list-item like this.
+ul, li {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+li {
+    flex-direction: column;
+}
 ```
 
 ## JavaScript
