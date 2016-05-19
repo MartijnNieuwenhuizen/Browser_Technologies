@@ -83,6 +83,25 @@
 
 			});
 
+		},
+		setNewElement: function(data) {
+
+			var _data = data;
+
+		    // get the label with the same 'for' name on the html
+		    var element = document.querySelector('label[for="'+ _data +'"]');
+		    // get the inner html of the selected label
+		    var text = element.innerHTML;
+		    // create new list item
+		    var newListItem = document.createElement('li');
+		    // set the list item inner html to the inner html of the selected label
+		    newListItem.innerHTML = text;
+		    // get the shopping list
+		    var list = document.querySelector('#shopping-list')
+		    // add the new list item to the ul
+		    list.appendChild(newListItem);
+		    // add the animation class to the elements
+		    newListItem.classList.add('js-ondrop');
 		}
 	};
 
@@ -203,25 +222,10 @@
 		},
 		drop: function(event) {
 
-			// get the targetName of the draged element
-		    var data = event.dataTransfer.getData("targetName");
-		    // get the label with the same 'for' name on the html
-		    var element = document.querySelector('label[for="'+ data +'"]');
-		    // get the inner html of the selected label
-		    var text = element.innerHTML;
-		    // create new list item
-		    var newListItem = document.createElement('li');
-		    // set the list item inner html to the inner html of the selected label
-		    newListItem.innerHTML = text;
-		    // add the new list item to the ul
-		    event.target.appendChild(newListItem);
-		    // add the animation class to the elements
-		    newListItem.classList.add('js-ondrop');
-
-		    // // Tryout for the POST request
-	    	// var data = event.dataTransfer.getData("targetName");
-	    	// var urlToLocalPhp = "http://local.tosti.nl/formValidation.php";
-	    	// postRequest.post(data, urlToLocalPhp);
+		    // Tryout for the POST request
+	    	var data = event.dataTransfer.getData("targetName");
+	    	var urlToLocalPhp = "http://local.tosti.nl/server.php";
+	    	postRequest.post(data, urlToLocalPhp);
 
 		    if (event.preventDefault) {
 		  		event.preventDefault();
@@ -282,37 +286,45 @@
 
 	}
 
-	// // Tryout for the POST request
-	// var postRequest = {
-	// 	getHTTPObject: function() {
-	// 	 	var xmlhttp = false;
-	// 	 	if (window.XMLHttpRequest) {
-	// 	  		xmlhttp = new XMLHttpRequest();
-	// 	 	} else if(window.ActiveXObject) {
-	// 	  		try {
-	// 	   			xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-	// 	  		} catch (e) {
-	// 	   			try {
-	// 	    			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	// 	   			} catch (e) {
-	// 	    			xmlhttp = false;
-	// 	   			}
-	// 	  		}
-	// 		}
-	// 		return xmlhttp;
-	// 	},
+	// Tryout for the POST request
+	var postRequest = {
+		getHTTPObject: function() {
+		 	var xmlhttp = false;
+		 	if (window.XMLHttpRequest) {
+		  		xmlhttp = new XMLHttpRequest();
+		 	} else if(window.ActiveXObject) {
+		  		try {
+		   			xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+		  		} catch (e) {
+		   			try {
+		    			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		   			} catch (e) {
+		    			xmlhttp = false;
+		   			}
+		  		}
+			}
+			return xmlhttp;
+		},
 
-	// 	post: function(data, url) {
-	// 		if (data) {
-	// 			console.log(data, url);
-	// 			request = postRequest.getHTTPObject();
+		post: function(data, url) {
+			if (data) {
+				
+				var returnedData;
 
-	// 			request.open("POST", url, true);
-	// 			request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	// 			request.send(data);
-	// 		}
-	// 	}
-	// };
+				request = postRequest.getHTTPObject();
+
+				request.onloadend = function(response) {
+
+					list.setNewElement(data);
+
+				}
+
+				request.open("POST", url, true);
+				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				request.send(data);
+			}
+		}
+	};
 		
 	app.louncher();
 
