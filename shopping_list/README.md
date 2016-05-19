@@ -17,7 +17,7 @@ In this assignment I build a tool to [create a Grocery list for a tosti](http://
 You must be able to get the choices on the list, and it would be awesome if you could immediately Drag & Drop them on the list.
 But what's the core of that? **A From**. So that's:
 
-```
+```html
 <form>
     // your code
 </form>
@@ -26,7 +26,7 @@ But what's the core of that? **A From**. So that's:
 Becuase a form gives you the opportunity to collect the data that the user has set, and transfer it to the list, it's the right choice for the job.
 So this would be your basic HTML:
 
-```    
+```html
 <form action="formValidation.php" method="post">
     
     <h2>Add your Ingredient</h2>
@@ -81,7 +81,7 @@ After the core works, it's time te enhance it. To add the drag and drop you simp
 To set the drop, you will need to use JavaScript.
 
 First, check if the draggable element is available. In this case, I used the check from Modernizer I know it's ugly, but also the only way to do it.
-```    
+```javascript
 if ( 'draggable' in document.createElement("div") && !/Mobile|Android|Slick\/|Kindle|BlackBerry|MSIE|Opera Mini|MSIE|Opera Mobi/i.test(navigator.userAgent)  ) {
             
     // call the other functions
@@ -90,7 +90,7 @@ if ( 'draggable' in document.createElement("div") && !/Mobile|Android|Slick\/|Ki
 ```
 
 If your browser supports this, you will need to get the element that's dragged with a check
-```
+```javascript
 item.ondragstart = function() {
     
     dragEvent(event);
@@ -99,7 +99,7 @@ item.ondragstart = function() {
 ```
 
 Next, set the data to the element-object so you can transfer it to the list.
-```
+```javascript
 function dragEvent(event) {
       
     event.dataTransfer.setData("targetName", event.target.htmlFor);
@@ -108,7 +108,7 @@ function dragEvent(event) {
 ```
 
 After that, make the dropPont droppable
-```
+```javascript
 function setDropZone() {
     
     var dropArea = document.querySelector('ul');
@@ -137,7 +137,7 @@ function setDropZone() {
 ```
 
 At last, set the info from the drag element into the drop element
-```
+```javascript
 function dropElement(event) {
 
     // get the targetName of the draged element
@@ -180,7 +180,7 @@ That's the basic code to create a good drag and drop functionality with the Drag
 Now that there's Flexbox, it's very easy to build a layout, but also flexbox isn't supported by every browser. To fix this you don't need to float anything, just be smart with the CSS ```display: something;```.
 If you set this right, your layout will behave like you want, without setting and deleting the floats in case your browser supports flexbox. If you want to see a specific example, you could look at the [feature detection assignment](https://github.com/MartijnNieuwenhuizen/Browser_Technologies/tree/master/feature_detection).
 A quick example will give you an insight:
-```
+```css
 li {
     // this centers all the elements in the *li* and will place all the li's behind each other
     display: inline-block;
